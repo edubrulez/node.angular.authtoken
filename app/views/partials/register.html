@@ -1,0 +1,38 @@
+<div class="col-md-6">
+    <h2>Register</h2>
+    <form name="registrationForm" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : registrationFailed }">
+            <p ng-show="registrationFailed" class="help-block">Registration failed.</p>
+            <p ng-show="registrationFailed" class="help-block" ng-repeat="error in errors">{{error}}</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.username.$invalid && registrationForm.username.$dirty }">
+            <label>Username</label>
+            <input ng-model="user.username" name="username" type="text" class="form-control" placeholder="Username" required autofocus />
+            <p ng-show="registrationForm.username.$invalid && registrationForm.username.$dirty" class="help-block">Username is required.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.email.$invalid && registrationForm.email.$dirty }">
+            <label>Email</label>
+            <input ng-model="user.email" name="email" type="email" class="form-control" placeholder="Email" required />
+            <p ng-show="registrationForm.email.$error.required && registrationForm.email.$dirty" class="help-block">Email is required.</p>
+            <p ng-show="registrationForm.email.$error.email && registrationForm.email.$dirty" class="help-block">Invalid email address.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.password.$invalid && registrationForm.password.$dirty }">
+            <label>Password</label>
+            <input ng-model="user.password" name="password" type="password" class="form-control" placeholder="Password" required ng-minlength="6" />
+            <p ng-show="registrationForm.password.$error.required && registrationForm.password.$dirty" class="help-block">Password is required.</p>
+            <p ng-show="registrationForm.password.$error.minlength && registrationForm.password.$dirty" class="help-block">Password must be at least 6 characters.</p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : registrationForm.confirmPassword.$invalid && registrationForm.confirmPassword.$dirty }">
+            <label>Confirm Password</label>
+            <input ng-model="user.confirmPassword" name="confirmPassword" type="password" class="form-control" placeholder="Confirm Password" same-as="user.password" required ng-minlength="6" />
+            <p ng-show="registrationForm.confirmPassword.$error.required && registrationForm.confirmPassword.$dirty" class="help-block">Password is required.</p>
+            <p ng-show="registrationForm.confirmPassword.$error.sameAs && registrationForm.confirmPassword.$dirty" class="help-block">Passwords don't match.</p>
+        </div>
+
+        <p><button class="btn btn-lg btn-primary" ng-click="register(user)" ng-disabled="registrationForm.$invalid">Create New User</button></p>
+    </form>
+</div>
